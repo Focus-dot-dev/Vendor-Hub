@@ -49,7 +49,7 @@ const KYCRequests = () => {
           <input
             type="text"
             placeholder="Search request..."
-            className="outline-none text-sm text-gray-700"
+            className="outline-none text-sm text-black"
           />
         </div>
       </div>

@@ -52,7 +52,7 @@ const LandingNav = () => {
               <input
                 type="search"
                 placeholder=""
-                className="bg-blue-500 outline-none text-white placeholder-white"
+                className="bg-blue-500 outline-none text-black placeholder-white"
               />
             </div>
           </div>
