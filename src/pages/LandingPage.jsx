@@ -168,30 +168,43 @@ const LandingPage = () => {
     <>
       <div
         className="bg-blue-600 bg-cover bg-center bg-no-repeat min-h-screen"
-        style={{ backgroundImage: `url(${SideImage})` }}
+        style={{
+          backgroundImage: `url(https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80)`,
+        }}
       >
-        <LandingNav />
-        <section className="flex justify-between items-center px-4 md:px-12 lg:px-24 py-8 md:py-12 mt-6 md:mt-10">
-          <div>
-            <div className="flex flex-col items-start w-fit justify-center mb-6 md:mb-10 mt-6 md:mt-10 gap-3 md:gap-5">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white">
-                Discover the Top Products <br /> from trusted vendors
-              </h1>
-              <p className="text-white text-sm md:text-base">
-                Shop from the comfort of your home with{" "}
-                <br className="hidden md:block" /> our wide range of products
-              </p>
+        {/* Desktop background image - hidden on mobile */}
+        <div
+          className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${SideImage})`,
+          }}
+        ></div>
+
+        {/* Content overlay */}
+        <div className="relative z-10">
+          <LandingNav />
+          <section className="flex justify-between items-center px-4 md:px-12 lg:px-24 py-8 md:py-12 mt-6 md:mt-10">
+            <div>
+              <div className="flex flex-col items-start w-fit justify-center mb-6 md:mb-10 mt-6 md:mt-10 gap-3 md:gap-5">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white">
+                  Discover the Top Products <br /> from trusted vendors
+                </h1>
+                <p className="text-white text-sm md:text-base">
+                  Shop from the comfort of your home with{" "}
+                  <br className="hidden md:block" /> our wide range of products
+                </p>
+              </div>
+              <div className="flex items-center gap-3 md:gap-5">
+                <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
+                  Shop Now
+                </button>
+                <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 md:px-6 py-2 md:py-3 rounded-full hover:bg-white/10 transition-colors text-sm md:text-base">
+                  Sell Now
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-3 md:gap-5">
-              <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
-                Shop Now
-              </button>
-              <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 md:px-6 py-2 md:py-3 rounded-full hover:bg-white/10 transition-colors text-sm md:text-base">
-                Sell Now
-              </button>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
 
       {/* Categories Section */}
