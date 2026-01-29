@@ -55,7 +55,7 @@ const AdminLogin = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="border-2 border-gray-300 rounded-lg p-2 w-full sm:w-80"
+                className="border-2 border-gray-300 rounded-lg p-2 w-full sm:w-80 text-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -64,7 +64,7 @@ const AdminLogin = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="border-2 border-gray-300 rounded-lg p-2 w-full pr-10"
+                  className="border-2 border-gray-300 rounded-lg p-2 w-full pr-10 text-black"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
