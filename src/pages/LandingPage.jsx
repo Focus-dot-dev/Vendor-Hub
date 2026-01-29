@@ -11,6 +11,7 @@ import {
   FaSpa,
   FaCar,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   const categories = [
@@ -291,9 +292,11 @@ const LandingPage = () => {
             Get access to millions of customers, powerful tools, and 24/7
             support.
           </p>
-          <button className="mt-4 bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-            Become a Vendor
-          </button>
+          <Link to="/vendorSignup">
+            <button className="mt-4 bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              Become a Vendor
+            </button>
+          </Link>
         </div>
         {/* Decorative circles */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>

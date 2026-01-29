@@ -16,8 +16,8 @@ const ProductCard = ({ image, title, price, rating, discount }) => {
             -{discount}%
           </span>
         )}
-        <button className="absolute bottom-2 right-2 bg-white p-2 rounded-full shadow-md transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300 hover:bg-blue-500 hover:text-white">
-          <FiShoppingCart size={18} />
+        <button className="absolute bottom-2 right-2 bg-blue-500 p-2 rounded-full shadow-md transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300 hover:bg-blue-500 hover:text-white cursor-pointer">
+          <FiShoppingCart size={18}  />
         </button>
       </div>
 
