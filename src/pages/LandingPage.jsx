@@ -169,7 +169,7 @@ const LandingPage = () => {
       <div
         className="bg-blue-600 bg-cover bg-center bg-no-repeat min-h-screen"
         style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80)`,
+          backgroundImage: `url(https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&auto=format&fit=crop&q=80)`,
         }}
       >
         {/* Desktop background image - hidden on mobile */}
