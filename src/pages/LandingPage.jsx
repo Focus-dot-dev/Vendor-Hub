@@ -171,22 +171,22 @@ const LandingPage = () => {
         style={{ backgroundImage: `url(${SideImage})` }}
       >
         <LandingNav />
-        <section className=" flex justify-between items-center px-24 py-2 mt-10">
+        <section className="flex justify-between items-center px-4 md:px-12 lg:px-24 py-8 md:py-12 mt-6 md:mt-10">
           <div>
-            <div className="flex flex-col items-start w-fit justify-center mb-10 mt-10 gap-5">
-              <h1 className="text-4xl font-serif text-white">
+            <div className="flex flex-col items-start w-fit justify-center mb-6 md:mb-10 mt-6 md:mt-10 gap-3 md:gap-5">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white">
                 Discover the Top Products <br /> from trusted vendors
               </h1>
-              <p className="text-white">
-                Shop from the comfort of your home with <br /> our wide range of
-                products
+              <p className="text-white text-sm md:text-base">
+                Shop from the comfort of your home with{" "}
+                <br className="hidden md:block" /> our wide range of products
               </p>
             </div>
-            <div className="flex items-center gap-5">
-              <button className="bg-white text-blue-600 px-4 py-2 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors">
+            <div className="flex items-center gap-3 md:gap-5">
+              <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
                 Shop Now
               </button>
-              <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 py-2 rounded-full hover:bg-white/10 transition-colors">
+              <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 md:px-6 py-2 md:py-3 rounded-full hover:bg-white/10 transition-colors text-sm md:text-base">
                 Sell Now
               </button>
             </div>
@@ -195,9 +195,9 @@ const LandingPage = () => {
       </div>
 
       {/* Categories Section */}
-      <section className="px-24 py-16 bg-gray-50">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
         <SectionHeader title="Shop by Category" />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {categories.map((cat, idx) => (
             <div
               key={idx}
@@ -213,9 +213,9 @@ const LandingPage = () => {
       </section>
 
       {/* Flash Sales Section */}
-      <section className="px-24 py-16 bg-white">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white">
         <SectionHeader title="Flash Sales" linkTo="/flash-sales" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
@@ -223,9 +223,9 @@ const LandingPage = () => {
       </section>
 
       {/* Technology & Gadgets Section */}
-      <section className="px-24 py-16 bg-gray-50">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
         <SectionHeader title="Technology & Gadgets" linkTo="/categories/tech" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {techProducts.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
@@ -233,9 +233,9 @@ const LandingPage = () => {
       </section>
 
       {/* Fashion Section */}
-      <section className="px-24 py-16 bg-white">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white">
         <SectionHeader title="Fashion" linkTo="/categories/fashion" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {fashionProducts.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
@@ -243,9 +243,9 @@ const LandingPage = () => {
       </section>
 
       {/* Beauty & Health Section */}
-      <section className="px-24 py-16 bg-gray-50">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
         <SectionHeader title="Beauty & Health" linkTo="/categories/beauty" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <ProductCard
             id={13}
             title="Luxury Skin Care Set"
@@ -282,18 +282,18 @@ const LandingPage = () => {
       </section>
 
       {/* Join as Vendor CTA Section */}
-      <section className="px-24 py-20 bg-blue-600 relative overflow-hidden">
-        <div className="relative z-10 flex flex-col items-center text-center gap-6">
-          <h2 className="text-4xl font-bold text-white font-serif italic">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-20 bg-blue-600 relative overflow-hidden">
+        <div className="relative z-10 flex flex-col items-center text-center gap-4 md:gap-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white font-serif italic">
             Start Selling on Vendora Today
           </h2>
-          <p className="text-blue-100 max-w-2xl text-lg">
+          <p className="text-blue-100 max-w-2xl text-sm md:text-base lg:text-lg px-4">
             Join thousands of vendors who are growing their business with us.
             Get access to millions of customers, powerful tools, and 24/7
             support.
           </p>
           <Link to="/vendorSignup">
-            <button className="mt-4 bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <button className="mt-2 md:mt-4 bg-white text-blue-600 px-6 md:px-8 py-2 md:py-3 rounded-full font-bold text-base md:text-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
               Become a Vendor
             </button>
           </Link>
@@ -304,8 +304,8 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-16 px-24">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <footer className="bg-gray-900 text-gray-300 py-12 md:py-16 px-4 md:px-12 lg:px-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <div>
             <h1 className="text-2xl font-bold font-serif italic text-white mb-4">
               Vendora

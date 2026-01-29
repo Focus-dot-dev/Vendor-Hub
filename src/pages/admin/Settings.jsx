@@ -13,19 +13,20 @@ const Settings = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 md:mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
           Platform Settings
         </h1>
-        <button className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-md">
-          <FaSave /> Save Changes
+        <button className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 md:px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-md text-sm md:text-base">
+          <FaSave /> <span className="hidden sm:inline">Save Changes</span>
+          <span className="sm:hidden">Save</span>
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 md:gap-6">
         {/* Settings Navigation */}
-        <div className="w-full lg:w-64 flex flex-col gap-2">
+        <div className="w-full lg:w-64 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible">
           {/* ... (navigation buttons remain same, just updated classNames if needed, but for now assuming light mode styles on nav) */}
           <button
             onClick={() => setActiveTab("general")}
@@ -54,7 +55,7 @@ const Settings = () => {
         </div>
 
         {/* Settings Content */}
-        <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+        <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 md:p-6 lg:p-8">
           {activeTab === "general" && (
             <div className="space-y-6">
               <h2 className="text-xl font-bold text-gray-800 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-4">

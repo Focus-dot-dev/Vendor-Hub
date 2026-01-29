@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { CiGlobe } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
@@ -10,6 +10,7 @@ const LandingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("NG");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const countries = [
     { code: "NG", name: "Nigeria" },
@@ -31,6 +32,7 @@ const LandingNav = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const toggleCategoryDropdown = () => setIsCategoryOpen(!isCategoryOpen);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const handleSelect = (code) => {
     setSelectedCountry(code);
@@ -39,25 +41,33 @@ const LandingNav = () => {
 
   return (
     <>
-      <nav>
-        <div className="flex justify-between items-center bg-blue-600 px-24 py-2 relative z-50 border-b border-gray-400">
-          <div className="flex items-center gap-10">
+      <nav className="bg-blue-600">
+        {/* Top Bar */}
+        <div className="flex justify-between items-center px-4 md:px-8 lg:px-24 py-3 relative z-50 border-b border-gray-400">
+          {/* Logo and Search */}
+          <div className="flex items-center gap-4 md:gap-10 flex-1">
             <div>
-              <h1 className="text-2xl font-bold font-serif italic text-white">
+              <h1 className="text-xl md:text-2xl font-bold font-serif italic text-white">
                 Vendora
               </h1>
             </div>
-            <div className="flex items-center gap-2 bg-blue-500 p-2 rounded-xl">
+            <div className="hidden md:flex items-center gap-2 bg-blue-500 p-2 rounded-xl flex-1 max-w-md">
               <FaSearch size={20} color="white" />
               <input
                 type="search"
-                placeholder=""
-                className="bg-blue-500 outline-none text-black placeholder-white"
+                placeholder="Search products..."
+                className="bg-blue-500 outline-none text-black placeholder-white w-full"
               />
             </div>
           </div>
-          <div className="flex items-center gap-8">
-            <FiShoppingCart size={30} color="white" />
+
+          {/* Desktop Icons */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-8">
+            <FiShoppingCart
+              size={30}
+              color="white"
+              className="cursor-pointer"
+            />
 
             {/* Country Dropdown */}
             <div className="relative">
@@ -86,20 +96,42 @@ const LandingNav = () => {
               )}
             </div>
 
-            <span className="text-white">|</span>
+            <span className="text-white hidden lg:block">|</span>
             <Link
               to="/login"
-              className="flex items-center hover:bg-blue-800 hover:scale-110 transition-all bg-blue-500 px-2 rounded-xl"
+              className="flex items-center hover:bg-blue-800 hover:scale-110 transition-all bg-blue-500 px-2 py-2 rounded-xl"
             >
               <CgProfile size={20} color="white" />
-              <span className=" text-white px-2 py-2 transition-colors">
+              <span className="text-white px-2 transition-colors hidden lg:block">
                 Login
               </span>
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden text-white p-2"
+          >
+            {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
-        <div className="flex justify-between items-center px-24 py-2 text-white">
-          <ul className="flex items-center gap-8">
+
+        {/* Mobile Search Bar */}
+        <div className="md:hidden px-4 pb-3">
+          <div className="flex items-center gap-2 bg-blue-500 p-2 rounded-xl">
+            <FaSearch size={18} color="white" />
+            <input
+              type="search"
+              placeholder="Search products..."
+              className="bg-blue-500 outline-none text-black placeholder-white w-full text-sm"
+            />
+          </div>
+        </div>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex justify-between items-center px-4 md:px-8 lg:px-24 py-2 text-white">
+          <ul className="flex items-center gap-4 lg:gap-8">
             <li className="relative">
               <button
                 onClick={toggleCategoryDropdown}
@@ -132,11 +164,82 @@ const LandingNav = () => {
                 </div>
               )}
             </li>
-            <li>Helpdesk</li>
-            <li>Sell on Vendora</li>
-            <li>About Us</li>
+            <li className="hover:text-blue-200 transition-colors cursor-pointer">
+              Helpdesk
+            </li>
+            <li className="hover:text-blue-200 transition-colors cursor-pointer">
+              Sell on Vendora
+            </li>
+            <li className="hover:text-blue-200 transition-colors cursor-pointer">
+              About Us
+            </li>
           </ul>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-blue-700 px-4 py-4 space-y-4">
+            {/* Mobile Categories */}
+            <div>
+              <button
+                onClick={toggleCategoryDropdown}
+                className="flex items-center justify-between w-full text-white py-2"
+              >
+                <span>Categories</span>
+                <FaChevronDown
+                  size={12}
+                  className={`transition-transform duration-200 ${isCategoryOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {isCategoryOpen && (
+                <ul className="pl-4 mt-2 space-y-2">
+                  {productCategories.map((category, index) => (
+                    <li key={index} className="text-blue-100 py-1">
+                      <Link
+                        to={`/category/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                        onClick={() => {
+                          setIsCategoryOpen(false);
+                          setIsMobileMenuOpen(false);
+                        }}
+                      >
+                        {category}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Mobile Links */}
+            <div className="text-white space-y-3">
+              <div className="py-2 border-t border-blue-600">Helpdesk</div>
+              <div className="py-2">Sell on Vendora</div>
+              <div className="py-2">About Us</div>
+
+              {/* Mobile Icons */}
+              <div className="flex items-center gap-4 pt-4 border-t border-blue-600">
+                <FiShoppingCart size={24} color="white" />
+                <div className="relative">
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={toggleDropdown}
+                  >
+                    <CiGlobe size={24} color="white" />
+                    <span className="text-sm">{selectedCountry}</span>
+                  </div>
+                </div>
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 bg-blue-500 px-3 py-2 rounded-xl"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <CgProfile size={20} color="white" />
+                  <span className="text-sm">Login</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );

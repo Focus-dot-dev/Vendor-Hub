@@ -113,28 +113,28 @@ const VendorSignup = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Navigation Bar */}
       <nav className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold font-serif italic text-blue-600">
+            <h1 className="text-xl md:text-2xl font-bold font-serif italic text-blue-600">
               Vendora
             </h1>
           </Link>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
             <Link
               to="/"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              className="text-sm md:text-base text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
             >
               Home
             </Link>
             <Link
               to="/login"
-              className="text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              className="hidden sm:block text-sm md:text-base text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
             >
               Vendor Login
             </Link>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-blue-600 text-white px-3 md:px-6 py-1.5 md:py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base"
             >
               Get Started
             </button>
@@ -144,22 +144,22 @@ const VendorSignup = () => {
 
       {/* Hero Section */}
       <div
-        className="relative bg-blue-600 text-white py-20 px-4 bg-cover bg-center bg-no-repeat"
+        className="relative bg-blue-600 text-white py-12 md:py-20 px-4 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${SignupBg})` }}
       >
-        <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="text-left">
-            <h1 className="text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight drop-shadow-lg">
               Start Your Success Story with Vendora
             </h1>
-            <p className="text-xl mb-8 text-blue-100 drop-shadow-md">
+            <p className="text-base md:text-xl mb-6 md:mb-8 text-blue-100 drop-shadow-md">
               Join thousands of successful vendors reaching millions of
               customers. Grow your business with our powerful e-commerce
               platform.
             </p>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="bg-white text-blue-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Start Selling Today
             </button>
@@ -171,11 +171,11 @@ const VendorSignup = () => {
       </div>
 
       {/* Benefits Section */}
-      <div className="max-w-6xl mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">
+      <div className="max-w-6xl mx-auto py-12 md:py-16 px-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800 dark:text-white">
           Why Sell on Vendora?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {benefits.map((benefit, index) => (
             <div
               key={index}
@@ -195,8 +195,8 @@ const VendorSignup = () => {
 
       {/* Registration Form */}
       {showForm && (
-        <div className="max-w-2xl mx-auto py-16 px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+        <div className="max-w-2xl mx-auto py-12 md:py-16 px-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700">
             <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white text-center">
               Register Your Shop
             </h2>
@@ -326,19 +326,19 @@ const VendorSignup = () => {
 
       {/* CTA Section (if form not shown) */}
       {!showForm && (
-        <div className="bg-blue-600 text-white py-16 px-4">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="bg-blue-600 text-white py-12 md:py-16 px-4">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="text-left">
-              <h1 className="text-5xl font-bold mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
                 Grow Your Business with Vendora
               </h1>
-              <p className="text-xl mb-8 text-blue-100">
+              <p className="text-base md:text-xl mb-6 md:mb-8 text-blue-100">
                 Join thousands of successful vendors reaching millions of
                 customers
               </p>
               <button
                 onClick={() => setShowForm(true)}
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-white text-blue-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 Start Selling Today
               </button>

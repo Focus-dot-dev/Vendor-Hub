@@ -77,16 +77,18 @@ const VendorManagement = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Vendor Management</h1>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800">
+          Vendor Management
+        </h1>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm md:text-base">
           + Add New Vendor
         </button>
       </div>
 
       {/* Filters */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-wrap gap-4 items-center justify-between">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
         <div className="relative w-full md:w-96">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
@@ -118,12 +120,22 @@ const VendorManagement = () => {
           <table className="w-full text-left">
             <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-100">
               <tr>
-                <th className="px-6 py-4">Vendor Name</th>
-                <th className="px-6 py-4">Category</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4">Join Date</th>
-                <th className="px-6 py-4">Total Sales</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-sm">
+                  Vendor Name
+                </th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-sm hidden lg:table-cell">
+                  Category
+                </th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-sm">Status</th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-sm hidden md:table-cell">
+                  Join Date
+                </th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-sm hidden sm:table-cell">
+                  Total Sales
+                </th>
+                <th className="px-4 md:px-6 py-3 md:py-4 text-right text-sm">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -132,18 +144,20 @@ const VendorManagement = () => {
                   key={vendor.id}
                   className="hover:bg-gray-50 transition-colors"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-4 md:px-6 py-3 md:py-4">
                     <div>
-                      <div className="font-semibold text-gray-800">
+                      <div className="font-semibold text-gray-800 text-sm">
                         {vendor.name}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-xs text-gray-500">
                         {vendor.email}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{vendor.category}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-600 text-sm hidden lg:table-cell">
+                    {vendor.category}
+                  </td>
+                  <td className="px-4 md:px-6 py-3 md:py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold
                         ${
@@ -157,11 +171,13 @@ const VendorManagement = () => {
                       {vendor.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-gray-500">{vendor.joinDate}</td>
-                  <td className="px-6 py-4 font-medium text-gray-800">
+                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-500 text-sm hidden md:table-cell">
+                    {vendor.joinDate}
+                  </td>
+                  <td className="px-4 md:px-6 py-3 md:py-4 font-medium text-gray-800 text-sm hidden sm:table-cell">
                     {vendor.sales}
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-4 md:px-6 py-3 md:py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"

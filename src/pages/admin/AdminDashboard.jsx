@@ -83,10 +83,12 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 md:mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800">
+          Dashboard Overview
+        </h1>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm md:text-base">
           Download Report
         </button>
       </div>
@@ -124,12 +126,12 @@ const AdminDashboard = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100">
+          <h3 className="text-base md:text-lg font-bold text-gray-800 mb-4">
             Revenue Analytics
           </h3>
-          <div className="h-80">
+          <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data}>
                 <defs>
@@ -164,11 +166,11 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">
+        <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100">
+          <h3 className="text-base md:text-lg font-bold text-gray-800 mb-4">
             Vendor Growth
           </h3>
-          <div className="h-80">
+          <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <CartesianGrid
@@ -195,17 +197,21 @@ const AdminDashboard = () => {
 
       {/* Recent Activity Table */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
-          <h3 className="text-lg font-bold text-gray-800">Recent Activity</h3>
+        <div className="p-4 md:p-6 border-b border-gray-100">
+          <h3 className="text-base md:text-lg font-bold text-gray-800">
+            Recent Activity
+          </h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left text-sm">
             <thead className="bg-gray-50 text-gray-500 font-medium">
               <tr>
-                <th className="px-6 py-4">User</th>
-                <th className="px-6 py-4">Action</th>
-                <th className="px-6 py-4">Time</th>
-                <th className="px-6 py-4">Status</th>
+                <th className="px-4 md:px-6 py-3 md:py-4">User</th>
+                <th className="px-4 md:px-6 py-3 md:py-4">Action</th>
+                <th className="px-4 md:px-6 py-3 md:py-4 hidden sm:table-cell">
+                  Time
+                </th>
+                <th className="px-4 md:px-6 py-3 md:py-4">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -214,12 +220,16 @@ const AdminDashboard = () => {
                   key={item.id}
                   className="hover:bg-gray-50 transition-colors"
                 >
-                  <td className="px-6 py-4 font-medium text-gray-800">
+                  <td className="px-4 md:px-6 py-3 md:py-4 font-medium text-gray-800">
                     {item.user}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{item.action}</td>
-                  <td className="px-6 py-4 text-gray-500">{item.time}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-600">
+                    {item.action}
+                  </td>
+                  <td className="px-4 md:px-6 py-3 md:py-4 text-gray-500 hidden sm:table-cell">
+                    {item.time}
+                  </td>
+                  <td className="px-4 md:px-6 py-3 md:py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold
                         ${
