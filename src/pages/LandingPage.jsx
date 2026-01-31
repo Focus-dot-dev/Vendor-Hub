@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import LandingNav from "../components/LandingNav";
-import SideImage from "../assets/herobg.png";
+import HeroImage1 from "../assets/ecommerce_hero.png";
+import HeroImage2 from "../assets/ecommerce_hero_fashion.png";
+import HeroImage3 from "../assets/ecommerce_hero_tech.png";
 import SectionHeader from "../components/SectionHeader";
 import ProductCard from "../components/ProductCard";
 import {
@@ -14,6 +16,16 @@ import {
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [HeroImage1, HeroImage2, HeroImage3];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
   const categories = [
     {
       name: "Electronics",
@@ -166,23 +178,27 @@ const LandingPage = () => {
 
   return (
     <>
-      <div
-        className="bg-blue-600 bg-cover bg-center bg-no-repeat min-h-screen"
-        style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&auto=format&fit=crop&q=80)`,
-        }}
-      >
-        {/* Desktop background image - hidden on mobile */}
-        <div
-          className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${SideImage})`,
-          }}
-        ></div>
+      <LandingNav />
+      {/* Hero Section */}
+      <div className="relative px-4 md:px-12 lg:px-24 py-12 md:py-24 lg:py-32 flex items-center bg-gray-100 overflow-hidden">
+        {/* Carousel Background Images */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          ></div>
+        ))}
+
+        {/* Dark Mode Overlay */}
+        <div className="absolute inset-0 bg-black opacity-0 dark:opacity-50 transition-opacity duration-300 pointer-events-none"></div>
 
         {/* Content overlay */}
-        <div className="relative z-10">
-          <LandingNav />
+        <div className="relative z-10 w-full">
           <section className="flex justify-between items-center px-4 md:px-12 lg:px-24 py-8 md:py-12 mt-6 md:mt-10">
             <div>
               <div className="flex flex-col items-start w-fit justify-center mb-6 md:mb-10 mt-6 md:mt-10 gap-3 md:gap-5">
@@ -195,12 +211,16 @@ const LandingPage = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3 md:gap-5">
-                <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
-                  Shop Now
-                </button>
-                <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 md:px-6 py-2 md:py-3 rounded-full hover:bg-white/10 transition-colors text-sm md:text-base">
-                  Sell Now
-                </button>
+                <Link to="/shop">
+                  <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
+                    Shop Now
+                  </button>
+                </Link>
+                <Link to="/vendorSignup">
+                  <button className="bg-transparent border border-white text-white font-serif cursor-pointer px-4 md:px-6 py-2 md:py-3 rounded-full hover:bg-white/10 transition-colors text-sm md:text-base">
+                    Sell Now
+                  </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -208,26 +228,28 @@ const LandingPage = () => {
       </div>
 
       {/* Categories Section */}
-      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
         <SectionHeader title="Shop by Category" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {categories.map((cat, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center gap-3 p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1"
+              className="flex flex-col items-center gap-3 p-6 bg-white dark:bg-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1"
             >
               <div className={`p-4 rounded-full ${cat.color} mb-2`}>
                 {cat.icon}
               </div>
-              <span className="font-semibold text-gray-700">{cat.name}</span>
+              <span className="font-semibold text-gray-700 dark:text-gray-200">
+                {cat.name}
+              </span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Flash Sales Section */}
-      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white">
-        <SectionHeader title="Flash Sales" linkTo="/flash-sales" />
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <SectionHeader title="Flash Sales" linkTo="/shop" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} {...product} />
@@ -236,8 +258,11 @@ const LandingPage = () => {
       </section>
 
       {/* Technology & Gadgets Section */}
-      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
-        <SectionHeader title="Technology & Gadgets" linkTo="/categories/tech" />
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+        <SectionHeader
+          title="Technology & Gadgets"
+          linkTo="/category/electronics"
+        />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {techProducts.map((product) => (
             <ProductCard key={product.id} {...product} />
@@ -246,8 +271,8 @@ const LandingPage = () => {
       </section>
 
       {/* Fashion Section */}
-      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white">
-        <SectionHeader title="Fashion" linkTo="/categories/fashion" />
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <SectionHeader title="Fashion" linkTo="/category/fashion" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {fashionProducts.map((product) => (
             <ProductCard key={product.id} {...product} />
@@ -256,8 +281,8 @@ const LandingPage = () => {
       </section>
 
       {/* Beauty & Health Section */}
-      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50">
-        <SectionHeader title="Beauty & Health" linkTo="/categories/beauty" />
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+        <SectionHeader title="Beauty & Health" linkTo="/category/beauty" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <ProductCard
             id={13}

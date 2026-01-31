@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { CiGlobe } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
+import { useTheme } from "../context/ThemeContext";
 
 const LandingNav = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("NG");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const countries = [
     { code: "NG", name: "Nigeria" },
@@ -41,28 +45,43 @@ const LandingNav = () => {
 
   return (
     <>
-      <nav className="bg-blue-600">
+      <nav className="bg-blue-600 dark:bg-gray-900 transition-colors duration-300">
         {/* Top Bar */}
-        <div className="flex justify-between items-center px-4 md:px-8 lg:px-24 py-3 relative z-50 border-b border-gray-400">
+        <div className="flex justify-between items-center px-4 md:px-8 lg:px-24 py-3 relative z-50 border-b border-gray-400 dark:border-gray-700">
           {/* Logo and Search */}
           <div className="flex items-center gap-4 md:gap-10 flex-1">
             <div>
-              <h1 className="text-xl md:text-2xl font-bold font-serif italic text-white">
-                Vendora
-              </h1>
+              <Link to="/">
+                <h1 className="text-xl md:text-2xl font-bold font-serif italic text-white cursor-pointer">
+                  Vendora
+                </h1>
+              </Link>
             </div>
-            <div className="hidden md:flex items-center gap-2 bg-blue-500 p-2 rounded-xl flex-1 max-w-md">
+            <div className="hidden md:flex items-center gap-2 bg-blue-500 dark:bg-gray-800 p-2 rounded-xl flex-1 max-w-md border border-transparent dark:border-gray-700">
               <FaSearch size={20} color="white" />
               <input
                 type="search"
                 placeholder="Search products..."
-                className="bg-blue-500 outline-none text-black placeholder-white w-full"
+                className="bg-transparent outline-none text-white placeholder-white/70 w-full"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    navigate(`/shop?search=${e.target.value}`);
+                  }
+                }}
               />
             </div>
           </div>
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center gap-4 lg:gap-8">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-white/10 transition-colors text-white"
+              aria-label="Toggle Dark Mode"
+            >
+              {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+            </button>
+
             <FiShoppingCart
               size={30}
               color="white"
@@ -218,6 +237,13 @@ const LandingNav = () => {
 
               {/* Mobile Icons */}
               <div className="flex items-center gap-4 pt-4 border-t border-blue-600">
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full hover:bg-white/10 transition-colors text-white"
+                  aria-label="Toggle Dark Mode"
+                >
+                  {isDarkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
+                </button>
                 <FiShoppingCart size={24} color="white" />
                 <div className="relative">
                   <div
