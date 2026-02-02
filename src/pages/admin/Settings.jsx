@@ -6,7 +6,7 @@ import {
   FaGlobe,
   FaUserCog,
 } from "react-icons/fa";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../context/ThemeContext.js";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("general");

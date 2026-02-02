@@ -410,7 +410,7 @@ const ProductListing = () => {
               {paginatedProducts.length > 0 ? (
                 <>
                   <div
-                    className={`grid gap-6 mb-8 ${
+                    className={`grid gap-4 md:gap-6 mb-8 ${
                       viewMode === "grid"
                         ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                         : "grid-cols-1"
@@ -423,7 +423,7 @@ const ProductListing = () => {
 
                   {/* Pagination */}
                   {totalPages > 1 && (
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-center gap-2 flex-wrap">
                       <button
                         onClick={() =>
                           setCurrentPage((prev) => Math.max(1, prev - 1))
@@ -496,7 +496,7 @@ const ProductListing = () => {
             className="absolute inset-0 bg-black/50"
             onClick={() => setIsFilterOpen(false)}
           />
-          <div className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-xl overflow-y-auto">
+          <div className="absolute right-0 top-0 bottom-0 w-full max-w-xs bg-white shadow-xl overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900">Filters</h2>

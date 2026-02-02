@@ -11,9 +11,11 @@ import {
 import LandingNav from "../components/LandingNav";
 import { getProductById, allProducts } from "../data/products";
 import ProductCard from "../components/ProductCard";
+import { useCart } from "../context/CartContext.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const product = getProductById(id);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -206,7 +208,10 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <button className="flex-1 bg-blue-600 text-white py-3.5 px-6 rounded-full font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5">
+                  <button
+                    onClick={() => addToCart(product, quantity)}
+                    className="flex-1 bg-blue-600 text-white py-3.5 px-6 rounded-full font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5"
+                  >
                     <FaShoppingCart />
                     Add to Cart
                   </button>

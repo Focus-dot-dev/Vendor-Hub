@@ -3,7 +3,11 @@ import { FaStar } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+import { useCart } from "../context/CartContext.js";
+
 const ProductCard = ({ id, image, title, price, rating, discount }) => {
+  const { addToCart } = useCart();
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer border border-gray-100 dark:border-gray-700 h-full flex flex-col">
       <Link to={`/product/${id}`}>
@@ -19,10 +23,10 @@ const ProductCard = ({ id, image, title, price, rating, discount }) => {
             </span>
           )}
           <button
-            className="absolute bottom-2 right-2 bg-blue-500 p-2 rounded-full shadow-md transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300 hover:bg-blue-500 hover:text-white cursor-pointer z-10"
+            className="absolute bottom-2 right-2 bg-blue-500 p-2 rounded-full shadow-md transform translate-y-10 group-hover:translate-y-0 transition-transform duration-300 hover:bg-blue-600 hover:text-white cursor-pointer z-10"
             onClick={(e) => {
-              e.preventDefault(); // Prevent navigation when clicking cart
-              // Add to cart logic here
+              e.preventDefault(); // Prevent navigation
+              addToCart({ id, image, title, price, rating, discount });
             }}
           >
             <FiShoppingCart size={18} />

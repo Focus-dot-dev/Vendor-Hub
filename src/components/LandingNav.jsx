@@ -5,7 +5,8 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CiGlobe } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../context/ThemeContext.js";
+import { useCart } from "../context/CartContext.js";
 
 const LandingNav = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const LandingNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { isDarkMode, toggleTheme } = useTheme();
+  const { cartCount } = useCart();
 
   const countries = [
     { code: "NG", name: "Nigeria" },
@@ -82,11 +84,18 @@ const LandingNav = () => {
               {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
             </button>
 
-            <FiShoppingCart
-              size={30}
-              color="white"
-              className="cursor-pointer"
-            />
+            <Link to="/cart" className="relative group">
+              <FiShoppingCart
+                size={30}
+                color="white"
+                className="cursor-pointer group-hover:scale-110 transition-transform"
+              />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-blue-600 dark:border-gray-900">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
 
             {/* Country Dropdown */}
             <div className="relative">
@@ -244,7 +253,18 @@ const LandingNav = () => {
                 >
                   {isDarkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
                 </button>
-                <FiShoppingCart size={24} color="white" />
+                <Link
+                  to="/cart"
+                  className="relative"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <FiShoppingCart size={24} color="white" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-blue-600 dark:border-gray-900">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
                 <div className="relative">
                   <div
                     className="flex items-center gap-2 cursor-pointer"

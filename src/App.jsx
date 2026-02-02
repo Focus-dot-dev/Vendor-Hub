@@ -12,29 +12,40 @@ import Analytics from "./pages/admin/Analytics";
 import Settings from "./pages/admin/Settings";
 import VendorSignup from "./pages/VendorSignup";
 
-import { ThemeProvider } from "./context/ThemeContext";
+import Cart from "./pages/Cart";
+import { ThemeProvider } from "./context/ThemeProvider";
+import { CartProvider } from "./context/CartProvider";
 
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<AdminLogin />} />
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/shop" element={<ProductListing />} />
-          <Route path="/category/:categorySlug" element={<ProductListing />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/vendorSignup" element={<VendorSignup />} />
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="vendors" element={<VendorManagement />} />
-            <Route path="kyc" element={<KYCRequests />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<AdminLogin />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/shop" element={<ProductListing />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/category/:categorySlug"
+              element={<ProductListing />}
+            />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/vendorSignup" element={<VendorSignup />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route
+                index
+                element={<Navigate to="/admin/dashboard" replace />}
+              />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="vendors" element={<VendorManagement />} />
+              <Route path="kyc" element={<KYCRequests />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </ThemeProvider>
   );
 }
