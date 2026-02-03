@@ -212,7 +212,7 @@ const LandingPage = () => {
               </div>
               <div className="flex items-center gap-3 md:gap-5">
                 <Link to="/shop">
-                  <button className="bg-white text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
+                  <button className="bg-red-600 text-blue-600 px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
                     Shop Now
                   </button>
                 </Link>
