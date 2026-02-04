@@ -55,11 +55,11 @@ const ProductCard = ({ id, image, title, price, rating, discount }) => {
           </div>
           <div className="mt-auto flex items-center justify-between">
             <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
-              ${price.toLocaleString()}
+              ₦{price.toLocaleString()}
             </span>
             {discount && (
               <span className="text-sm text-gray-400 line-through">
-                ${(price / (1 - discount / 100)).toFixed(2)}
+                ₦{(price / (1 - discount / 100)).toFixed(2)}
               </span>
             )}
           </div>

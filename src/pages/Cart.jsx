@@ -68,7 +68,7 @@ const Cart = () => {
                         {item.title}
                       </h3>
                       <p className="text-blue-600 font-bold">
-                        ${item.price.toLocaleString()}
+                        ₦{item.price.toLocaleString()}
                       </p>
                     </div>
 

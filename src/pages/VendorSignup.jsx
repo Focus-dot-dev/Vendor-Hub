@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaStore,
   FaUsers,
@@ -21,6 +21,7 @@ const VendorSignup = () => {
     phone: "",
   });
   const navigate = useNavigate();
+  const formRef = useRef(null);
 
   const benefits = [
     {
@@ -94,6 +95,13 @@ const VendorSignup = () => {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
+  // Auto-scroll when form is shown
+  useEffect(() => {
+    if (showForm && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [showForm]);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -110,31 +118,31 @@ const VendorSignup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Navigation Bar */}
-      <nav className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation Bar - Updated to Dark Blue */}
+      <nav className="bg-blue-900 shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
-            <h1 className="text-xl md:text-2xl font-bold font-serif italic text-blue-600">
+            <h1 className="text-xl md:text-2xl font-bold font-serif italic text-white">
               Vendora
             </h1>
           </Link>
           <div className="flex items-center gap-3 md:gap-6">
             <Link
               to="/"
-              className="text-sm md:text-base text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              className="text-sm md:text-base text-gray-200 hover:text-white transition-colors"
             >
               Home
             </Link>
             <Link
-              to="/login"
-              className="hidden sm:block text-sm md:text-base text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
+              to="/Vendor/login"
+              className="hidden sm:block text-sm md:text-base text-gray-200 hover:text-white transition-colors"
             >
               Vendor Login
             </Link>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-blue-600 text-white px-3 md:px-6 py-1.5 md:py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base"
+              className="bg-white text-blue-900 font-bold px-3 md:px-6 py-1.5 md:py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm md:text-base"
             >
               Get Started
             </button>
@@ -172,37 +180,38 @@ const VendorSignup = () => {
 
       {/* Benefits Section */}
       <div className="max-w-6xl mx-auto py-12 md:py-16 px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800 dark:text-white">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">
           Why Sell on Vendora?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border border-gray-100"
             >
               <div className="text-blue-600 mb-4">{benefit.icon}</div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+              <h3 className="text-xl font-bold mb-2 text-gray-800">
                 {benefit.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {benefit.description}
-              </p>
+              <p className="text-gray-600">{benefit.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Registration Form */}
+      {/* Registration Form with Auto-Scroll Ref */}
       {showForm && (
-        <div className="max-w-2xl mx-auto py-12 md:py-16 px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 border border-gray-100 dark:border-gray-700">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white text-center">
+        <div
+          ref={formRef}
+          className="max-w-2xl mx-auto py-12 md:py-16 px-4 animate-fade-in-up"
+        >
+          <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-100">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
               Register Your Shop
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Shop Name *
                 </label>
                 <input
@@ -211,13 +220,13 @@ const VendorSignup = () => {
                   required
                   value={formData.shopName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-black dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-black"
                   placeholder="Enter your shop name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address *
                 </label>
                 <input
@@ -226,13 +235,13 @@ const VendorSignup = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
                   placeholder="your@email.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number *
                 </label>
                 <input
@@ -241,13 +250,13 @@ const VendorSignup = () => {
                   required
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
                   placeholder="+234 xxx xxx xxxx"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Shop Category *
                 </label>
                 <select
@@ -255,7 +264,7 @@ const VendorSignup = () => {
                   required
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
                 >
                   <option value="">Select a category</option>
                   <option value="all">All</option>
@@ -273,7 +282,7 @@ const VendorSignup = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Password *
                 </label>
                 <input
@@ -282,13 +291,13 @@ const VendorSignup = () => {
                   required
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
                   placeholder="Create a strong password"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Confirm Password *
                 </label>
                 <input
@@ -297,7 +306,7 @@ const VendorSignup = () => {
                   required
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-800"
                   placeholder="Confirm your password"
                 />
               </div>
@@ -309,7 +318,7 @@ const VendorSignup = () => {
                 Register Shop
               </button>
 
-              <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-center text-sm text-gray-600">
                 Already have an account?{" "}
                 <button
                   type="button"

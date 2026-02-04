@@ -20,7 +20,7 @@ const VendorManagement = () => {
       category: "Electronics",
       status: "Active",
       joinDate: "2025-12-01",
-      sales: "$12,450",
+      sales: "₦12,450",
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const VendorManagement = () => {
       category: "Fashion",
       status: "Active",
       joinDate: "2026-01-10",
-      sales: "$8,230",
+      sales: "₦8,230",
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ const VendorManagement = () => {
       category: "Home & Garden",
       status: "Pending",
       joinDate: "2026-01-20",
-      sales: "$0",
+      sales: "₦0",
     },
     {
       id: 4,
@@ -47,7 +47,7 @@ const VendorManagement = () => {
       category: "Beauty",
       status: "Suspended",
       joinDate: "2025-11-15",
-      sales: "$45,120",
+      sales: "₦45,120",
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ const VendorManagement = () => {
       category: "Automotive",
       status: "Active",
       joinDate: "2026-01-05",
-      sales: "$3,400",
+      sales: "₦3,400",
     },
     {
       id: 6,
@@ -65,7 +65,7 @@ const VendorManagement = () => {
       category: "Sports",
       status: "Pending",
       joinDate: "2026-01-22",
-      sales: "$0",
+      sales: "₦0",
     },
   ];
 
