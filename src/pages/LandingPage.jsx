@@ -213,7 +213,7 @@ const LandingPage = () => {
               <div className="flex items-center gap-3 md:gap-5">
                 <Link to="/shop">
                   <button className="bg-white text-black px-4 md:px-6 py-2 md:py-3 font-serif cursor-pointer rounded-full hover:bg-gray-100 transition-colors text-sm md:text-base">
-                    Shop Now
+                    DAMI RULES!
                   </button>
                 </Link>
                 <Link to="/vendorSignup">
