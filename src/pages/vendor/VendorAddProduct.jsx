@@ -85,7 +85,7 @@ const VendorAddProductContent = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
                 placeholder="e.g. Wireless Headset"
               />
             </div>
@@ -98,7 +98,7 @@ const VendorAddProductContent = () => {
                 required
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
               >
                 <option value="">Select Category</option>
                 <option value="Electronics">Electronics</option>
@@ -122,7 +122,7 @@ const VendorAddProductContent = () => {
                 step="0.01"
                 value={formData.price}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
                 placeholder="0.00"
               />
             </div>
@@ -137,7 +137,7 @@ const VendorAddProductContent = () => {
                 min="0"
                 value={formData.stock}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
                 placeholder="0"
               />
             </div>

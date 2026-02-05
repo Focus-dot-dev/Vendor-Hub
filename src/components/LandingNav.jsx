@@ -3,16 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
-import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
-import { useTheme } from "../context/ThemeContext.js";
+import { FaChevronDown } from "react-icons/fa";
 import { useCart } from "../context/CartContext.js";
+import { vendors } from "../data/products.js";
 
 const LandingNav = () => {
   const navigate = useNavigate();
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isVendorsOpen, setIsVendorsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { isDarkMode, toggleTheme } = useTheme();
   const { cartCount } = useCart();
 
   const productCategories = [
@@ -59,14 +59,6 @@ const LandingNav = () => {
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center gap-4 lg:gap-8">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors text-white"
-              aria-label="Toggle Dark Mode"
-            >
-              {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-            </button>
-
             <Link to="/cart" className="relative group">
               <FiShoppingCart
                 size={30}
@@ -148,6 +140,34 @@ const LandingNav = () => {
                 </div>
               )}
             </li>
+            <li className="relative">
+              <button
+                onClick={() => setIsVendorsOpen(!isVendorsOpen)}
+                className="flex items-center gap-2 hover:text-blue-200 transition-colors cursor-pointer"
+              >
+                Trusted Vendors
+                <FaChevronDown
+                  size={12}
+                  className={`transition-transform duration-200 ${isVendorsOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {isVendorsOpen && (
+                <div className="absolute top-8 left-0 bg-white rounded-lg shadow-xl w-48 overflow-hidden text-gray-800 animate-fade-in z-50">
+                  <ul className="flex flex-col py-1">
+                    {vendors.slice(0, 8).map((vendor, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-2 hover:bg-blue-50 hover:text-blue-600 cursor-pointer text-sm transition-colors"
+                        onClick={() => setIsVendorsOpen(false)}
+                      >
+                        <Link to={`/shop?search=${vendor}`}>{vendor}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
             <li className="hover:text-blue-200 transition-colors cursor-pointer">
               Helpdesk
             </li>
@@ -202,13 +222,6 @@ const LandingNav = () => {
 
               {/* Mobile Icons */}
               <div className="flex items-center gap-4 pt-4 border-t border-blue-600">
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors text-white"
-                  aria-label="Toggle Dark Mode"
-                >
-                  {isDarkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
-                </button>
                 <Link
                   to="/cart"
                   className="relative"

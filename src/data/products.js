@@ -1,4 +1,42 @@
-export const allProducts = [
+// Helper data for random generation
+// Helper data for random generation
+export const vendors = [
+  "TechGiant Ltd",
+  "FashionHub",
+  "GreenGardens",
+  "LuxuryBeauty",
+  "SpeedyAuto",
+  "SportyLife",
+  "GadgetWorld",
+  "HomeEssentials",
+];
+
+const users = ["Alice", "Bob", "Charlie", "Diana", "Evan", "Fiona"];
+
+const sampleReviews = [
+  "Great product, highly recommended!",
+  "Good value for money.",
+  "Fast shipping and excellent quality.",
+  "Average experience, could be better.",
+  "Absolutely love it!",
+  "Not what I expected, but okay.",
+];
+
+// Helper to get random item from array
+const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+// Helper to generate random reviews
+const generateReviews = (count = 2) => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i + 1,
+    user: getRandom(users),
+    rating: Math.floor(Math.random() * 2) + 4, // 4 or 5 stars mostly
+    comment: getRandom(sampleReviews),
+    date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toISOString().split('T')[0],
+  }));
+};
+
+const rawProducts = [
   // Electronics
   {
     id: 1,
@@ -531,6 +569,12 @@ export const allProducts = [
     category: "Auto",
   },
 ];
+
+export const allProducts = rawProducts.map((product) => ({
+  ...product,
+  vendor: getRandom(vendors),
+  reviews: generateReviews(Math.floor(Math.random() * 5) + 1),
+}));
 
 export const getProductById = (id) => {
   return allProducts.find((product) => product.id === parseInt(id));

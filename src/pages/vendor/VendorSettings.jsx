@@ -17,7 +17,7 @@ const VendorSettings = () => {
             <input
               type="email"
               defaultValue="vendor@example.com"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
             />
           </div>
           <div className="pt-2">

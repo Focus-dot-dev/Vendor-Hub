@@ -14,6 +14,7 @@ import {
   FaCar,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { allProducts } from "../data/products";
 
 const LandingPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -316,6 +317,19 @@ const LandingPage = () => {
             image="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop&q=60"
             discount={10}
           />
+        </div>
+      </section>
+
+      {/* From Top Sellers Section */}
+      <section className="px-4 md:px-12 lg:px-24 py-12 md:py-16 bg-white transition-colors duration-300">
+        <SectionHeader title="From Top Sellers" linkTo="/shop" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {allProducts
+            .filter((p) => p.rating === 5 && p.reviews && p.reviews.length > 0)
+            .slice(0, 4)
+            .map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
         </div>
       </section>
 

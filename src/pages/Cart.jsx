@@ -129,21 +129,25 @@ const Cart = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₦{cartTotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span className="text-green-600 font-semibold">Free</span>
+                  <span className="text-gray-500 text-sm">
+                    Calculated at checkout
+                  </span>
                 </div>
                 <div className="border-t border-gray-100 pt-4 flex justify-between text-lg font-bold text-gray-900">
                   <span>Total</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₦{cartTotal.toLocaleString()}</span>
                 </div>
               </div>
 
-              <button className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 mb-4">
-                Proceed to Checkout
-              </button>
+              <Link to="/checkout">
+                <button className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 mb-4 cursor-pointer">
+                  Proceed to Checkout
+                </button>
+              </Link>
 
               <Link
                 to="/shop"

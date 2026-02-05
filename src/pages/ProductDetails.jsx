@@ -146,6 +146,16 @@ const ProductDetails = () => {
                 <span className="text-green-600 text-sm font-medium">
                   In Stock
                 </span>
+                <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                <span className="text-sm text-gray-500">
+                  Sold by{" "}
+                  <Link
+                    to={`/shop?search=${product.vendor}`}
+                    className="font-semibold text-blue-600 hover:underline"
+                  >
+                    {product.vendor}
+                  </Link>
+                </span>
               </div>
 
               <div className="mb-8">
@@ -220,6 +230,114 @@ const ProductDetails = () => {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="bg-white rounded-2xl shadow-sm p-6 md:p-10 mb-12">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6 font-serif">
+            Customer Reviews ({product.reviews?.length || 0})
+          </h3>
+
+          <div className="space-y-8">
+            {/* Reviews List */}
+            <div className="space-y-6">
+              {product.reviews && product.reviews.length > 0 ? (
+                product.reviews.map((review) => (
+                  <div
+                    key={review.id}
+                    className="border-b last:border-0 pb-6 last:pb-0"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold text-xs">
+                        {review.user.charAt(0)}
+                      </div>
+                      <span className="font-semibold text-gray-900">
+                        {review.user}
+                      </span>
+                      <span className="text-gray-400 text-xs">
+                        • {review.date}
+                      </span>
+                    </div>
+                    <div className="flex text-yellow-400 mb-2 text-sm">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar
+                          key={i}
+                          className={
+                            i < review.rating ? "fill-current" : "text-gray-300"
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="text-gray-600">{review.comment}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500 italic">No reviews yet.</p>
+              )}
+            </div>
+
+            {/* Write Review */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h4 className="font-bold text-lg text-gray-900 mb-4">
+                Write a Review
+              </h4>
+              {/* Mock Auth Check - In real app, check context */}
+              {localStorage.getItem("user_token") ? (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    alert("Review submitted! (Mock)");
+                  }}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Rating
+                    </label>
+                    <div className="flex gap-1 text-gray-300 hover:text-yellow-400">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button key={star} type="button">
+                          <FaStar
+                            size={24}
+                            className="hover:text-yellow-400 transition-colors"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Comment
+                    </label>
+                    <textarea
+                      rows="4"
+                      className="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="Share your thoughts..."
+                      required
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  >
+                    Submit Review
+                  </button>
+                </form>
+              ) : (
+                <div className="text-center py-6">
+                  <p className="text-gray-600 mb-4">
+                    Please log in to write a review.
+                  </p>
+                  <Link
+                    to="/login"
+                    className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm"
+                  >
+                    Log In
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

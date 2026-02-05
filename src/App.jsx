@@ -19,6 +19,8 @@ import VendorKYC from "./pages/vendor/VendorKYC";
 import VendorAnalytics from "./pages/vendor/VendorAnalytics";
 import VendorAddProduct from "./pages/vendor/VendorAddProduct";
 import VendorOrderDetails from "./pages/vendor/VendorOrderDetails";
+import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 import Cart from "./pages/Cart";
 import { ThemeProvider } from "./context/ThemeProvider";
@@ -39,6 +41,11 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/shop" element={<ProductListing />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route
+                path="/order-confirmation"
+                element={<OrderConfirmation />}
+              />
               <Route
                 path="/category/:categorySlug"
                 element={<ProductListing />}

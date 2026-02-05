@@ -43,6 +43,7 @@ const ProductListing = () => {
   const [priceRange, setPriceRange] = useState([0, 2000]);
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedDiscount, setSelectedDiscount] = useState(0);
+  const [selectedVendors, setSelectedVendors] = useState([]);
   const [searchParams] = useSearchParams();
   const initialSearch = searchParams.get("search") || "";
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -59,6 +60,12 @@ const ProductListing = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
   const itemsPerPage = 12;
+
+  // Extract Unique Vendors
+  const vendors = useMemo(() => {
+    const uniqueVendors = [...new Set(allProducts.map((p) => p.vendor))];
+    return uniqueVendors.sort();
+  }, []);
 
   const categories = [
     "Electronics",
@@ -92,6 +99,11 @@ const ProductListing = () => {
       filtered = filtered.filter((p) =>
         selectedCategories.includes(p.category),
       );
+    }
+
+    // Vendor filter
+    if (selectedVendors.length > 0) {
+      filtered = filtered.filter((p) => selectedVendors.includes(p.vendor));
     }
 
     // Price range filter
@@ -141,6 +153,7 @@ const ProductListing = () => {
     return filtered;
   }, [
     selectedCategories,
+    selectedVendors,
     priceRange,
     selectedRating,
     selectedDiscount,
@@ -166,6 +179,7 @@ const ProductListing = () => {
 
   const clearAllFilters = () => {
     setSelectedCategories([]);
+    setSelectedVendors([]);
     setPriceRange([0, 2000]);
     setSelectedRating(0);
     setSelectedDiscount(0);
@@ -233,6 +247,35 @@ const ProductListing = () => {
                         />
                         <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
                           {category}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Vendors */}
+                <div className="mb-6">
+                  <h3 className="font-semibold text-gray-900 mb-3">Vendors</h3>
+                  <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                    {vendors.map((vendor) => (
+                      <label
+                        key={vendor}
+                        className="flex items-center gap-2 cursor-pointer group"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedVendors.includes(vendor)}
+                          onChange={() =>
+                            setSelectedVendors((prev) =>
+                              prev.includes(vendor)
+                                ? prev.filter((v) => v !== vendor)
+                                : [...prev, vendor],
+                            )
+                          }
+                          className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                        />
+                        <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                          {vendor}
                         </span>
                       </label>
                     ))}
@@ -536,6 +579,33 @@ const ProductListing = () => {
                         className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                       />
                       <span className="text-sm text-gray-700">{category}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Vendors */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Vendors</h3>
+                <div className="space-y-2">
+                  {vendors.map((vendor) => (
+                    <label
+                      key={vendor}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedVendors.includes(vendor)}
+                        onChange={() =>
+                          setSelectedVendors((prev) =>
+                            prev.includes(vendor)
+                              ? prev.filter((v) => v !== vendor)
+                              : [...prev, vendor],
+                          )
+                        }
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                      />
+                      <span className="text-sm text-gray-700">{vendor}</span>
                     </label>
                   ))}
                 </div>
