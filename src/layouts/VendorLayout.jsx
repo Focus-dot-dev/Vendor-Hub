@@ -119,7 +119,15 @@ const VendorLayout = () => {
         </nav>
 
         <div className="p-4 border-t border-blue-800">
-          <button className="flex items-center gap-4 text-blue-100 hover:text-red-300 transition-colors w-full px-4 py-2">
+          <button
+            onClick={() => {
+              // Clear any vendor session data
+              localStorage.removeItem("vendor_token");
+              // Redirect to vendor login
+              window.location.href = "/vendor/login";
+            }}
+            className="flex items-center gap-4 text-blue-100 hover:text-red-300 transition-colors w-full px-4 py-2"
+          >
             <FaSignOutAlt className="text-xl" />
             {(isSidebarOpen || isMobile) && <span>Logout</span>}
           </button>
@@ -138,12 +146,6 @@ const VendorLayout = () => {
           </button>
 
           <div className="flex items-center gap-3 md:gap-6">
-            <button className="relative text-gray-500 hover:text-blue-600 transition-colors">
-              <FaBell size={20} />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
-                2
-              </span>
-            </button>
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm">
                 V

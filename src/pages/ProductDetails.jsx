@@ -12,13 +12,21 @@ import LandingNav from "../components/LandingNav";
 import { getProductById, allProducts } from "../data/products";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext.js";
+import { useAuth } from "../context/AuthContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { isAuthenticated, user } = useAuth();
   const product = getProductById(id);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // Review state
+  const [reviews, setReviews] = useState(product?.reviews || []);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState("");
 
   if (!product) {
     return (
@@ -150,7 +158,7 @@ const ProductDetails = () => {
                 <span className="text-sm text-gray-500">
                   Sold by{" "}
                   <Link
-                    to={`/shop?search=${product.vendor}`}
+                    to={`/shop?vendor=${encodeURIComponent(product.vendor)}`}
                     className="font-semibold text-blue-600 hover:underline"
                   >
                     {product.vendor}
@@ -237,14 +245,14 @@ const ProductDetails = () => {
         {/* Reviews Section */}
         <div className="bg-white rounded-2xl shadow-sm p-6 md:p-10 mb-12">
           <h3 className="text-2xl font-bold text-gray-900 mb-6 font-serif">
-            Customer Reviews ({product.reviews?.length || 0})
+            Customer Reviews ({reviews?.length || 0})
           </h3>
 
           <div className="space-y-8">
             {/* Reviews List */}
             <div className="space-y-6">
-              {product.reviews && product.reviews.length > 0 ? (
-                product.reviews.map((review) => (
+              {reviews && reviews.length > 0 ? (
+                reviews.map((review) => (
                   <div
                     key={review.id}
                     className="border-b last:border-0 pb-6 last:pb-0"
@@ -283,25 +291,53 @@ const ProductDetails = () => {
               <h4 className="font-bold text-lg text-gray-900 mb-4">
                 Write a Review
               </h4>
-              {/* Mock Auth Check - In real app, check context */}
-              {localStorage.getItem("user_token") ? (
+              {isAuthenticated ? (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    alert("Review submitted! (Mock)");
+                    if (selectedRating === 0) {
+                      alert("Please select a rating");
+                      return;
+                    }
+
+                    const newReview = {
+                      id: reviews.length + 1,
+                      user: user?.name || "Anonymous",
+                      rating: selectedRating,
+                      comment: reviewComment,
+                      date: new Date().toISOString().split("T")[0],
+                    };
+
+                    setReviews([newReview, ...reviews]);
+                    setSelectedRating(0);
+                    setReviewComment("");
+                    e.target.reset();
                   }}
                   className="space-y-4"
                 >
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Rating
+                      Rating{" "}
+                      {selectedRating > 0 &&
+                        `(${selectedRating} star${selectedRating > 1 ? "s" : ""})`}
                     </label>
-                    <div className="flex gap-1 text-gray-300 hover:text-yellow-400">
+                    <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <button key={star} type="button">
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setSelectedRating(star)}
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          className="transition-transform hover:scale-110"
+                        >
                           <FaStar
                             size={24}
-                            className="hover:text-yellow-400 transition-colors"
+                            className={`transition-colors ${
+                              star <= (hoverRating || selectedRating)
+                                ? "text-yellow-400"
+                                : "text-gray-300"
+                            }`}
                           />
                         </button>
                       ))}
@@ -313,7 +349,9 @@ const ProductDetails = () => {
                     </label>
                     <textarea
                       rows="4"
-                      className="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      value={reviewComment}
+                      onChange={(e) => setReviewComment(e.target.value)}
+                      className="w-full rounded-lg border-gray-300 border-2 resize-none focus:border-blue-500 focus:ring-blue-500"
                       placeholder="Share your thoughts..."
                       required
                     ></textarea>

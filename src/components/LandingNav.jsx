@@ -5,6 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { FaChevronDown } from "react-icons/fa";
 import { useCart } from "../context/CartContext.js";
+import { useAuth } from "../context/AuthContext";
 import { vendors } from "../data/products.js";
 
 const LandingNav = () => {
@@ -14,6 +15,8 @@ const LandingNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { cartCount } = useCart();
+  const { user, logout } = useAuth();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const productCategories = [
     "Electronics",
@@ -73,15 +76,77 @@ const LandingNav = () => {
             </Link>
 
             <span className="text-white hidden lg:block">|</span>
-            <Link
-              to="/login"
-              className="flex items-center hover:bg-blue-800 hover:scale-110 transition-all bg-blue-500 px-2 py-2 rounded-xl"
-            >
-              <CgProfile size={20} color="white" />
-              <span className="text-white px-2 transition-colors hidden lg:block">
-                Login
-              </span>
-            </Link>
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-2 hover:bg-blue-500/50 p-1.5 rounded-lg transition-colors"
+                >
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold border-2 border-white">
+                    {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                  </div>
+                  <span className="text-white font-medium hidden lg:block">
+                    {user.name ? user.name.split(" ")[0] : "User"}
+                  </span>
+                  <FaChevronDown size={10} className="text-white" />
+                </button>
+
+                {isProfileOpen && (
+                  <div className="absolute top-12 right-0 bg-white rounded-lg shadow-xl w-48 overflow-hidden text-gray-800 animate-fade-in z-50">
+                    <div className="px-4 py-3 border-b">
+                      <p className="text-sm font-bold text-gray-900">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                    <ul className="py-1">
+                      <li className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm">
+                        <Link to="/profile">My Account</Link>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm">
+                        <Link to="/orders">Orders</Link>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm">
+                        <Link to="/wishlist">Wishlist</Link>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm">
+                        <Link to="/addresses">Addresses</Link>
+                      </li>
+                      <li
+                        onClick={() => {
+                          logout();
+                          setIsProfileOpen(false);
+                          navigate("/");
+                        }}
+                        className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm text-red-600 border-t border-gray-100"
+                      >
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/login"
+                  className="flex items-center hover:bg-blue-800 hover:scale-110 transition-all bg-blue-500 px-3 py-2 rounded-xl"
+                >
+                  <CgProfile size={20} color="white" />
+                  <span className="text-white ml-2 transition-colors hidden lg:block font-medium">
+                    Login
+                  </span>
+                </Link>
+                <Link
+                  to="/signup"
+                  className="hidden lg:flex items-center hover:bg-white hover:text-blue-600 transition-all border border-white px-3 py-2 rounded-xl text-white font-medium"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -161,7 +226,9 @@ const LandingNav = () => {
                         className="px-4 py-2 hover:bg-blue-50 hover:text-blue-600 cursor-pointer text-sm transition-colors"
                         onClick={() => setIsVendorsOpen(false)}
                       >
-                        <Link to={`/shop?search=${vendor}`}>{vendor}</Link>
+                        <Link to={`/shop?vendor=${encodeURIComponent(vendor)}`}>
+                          {vendor}
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -169,13 +236,13 @@ const LandingNav = () => {
               )}
             </li>
             <li className="hover:text-blue-200 transition-colors cursor-pointer">
-              Helpdesk
+              <Link to="/help">Helpdesk</Link>
             </li>
             <li className="hover:text-blue-200 transition-colors cursor-pointer">
               Sell on Vendora
             </li>
             <li className="hover:text-blue-200 transition-colors cursor-pointer">
-              About Us
+              <Link to="/about">About Us</Link>
             </li>
           </ul>
         </div>
@@ -234,14 +301,40 @@ const LandingNav = () => {
                     </span>
                   )}
                 </Link>
-                <Link
-                  to="/login"
-                  className="flex items-center gap-2 bg-blue-500 px-3 py-2 rounded-xl"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <CgProfile size={20} color="white" />
-                  <span className="text-sm">Login</span>
-                </Link>
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="text-white text-sm bg-red-500 px-3 py-1.5 rounded-lg"
+                    >
+                      Logout
+                    </button>
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
+                      {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      className="flex items-center gap-2 bg-blue-500 px-3 py-2 rounded-xl"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <CgProfile size={20} color="white" />
+                      <span className="text-sm">Login</span>
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="flex items-center gap-2 border border-white px-3 py-2 rounded-xl"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <span className="text-sm">Sign Up</span>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -36,6 +36,7 @@ const AdminLayout = () => {
   const menuItems = [
     { name: "Dashboard", icon: <FaHome />, path: "/admin/dashboard" },
     { name: "Vendors", icon: <FaUsers />, path: "/admin/vendors" },
+    { name: "Products", icon: <FaBell />, path: "/admin/products" },
     { name: "KYC Requests", icon: <FaUserCheck />, path: "/admin/kyc" },
     { name: "Analytics", icon: <FaChartBar />, path: "/admin/analytics" },
     { name: "Settings", icon: <FaCog />, path: "/admin/settings" },
@@ -115,7 +116,15 @@ const AdminLayout = () => {
         </nav>
 
         <div className="p-4 border-t border-blue-800">
-          <button className="flex items-center gap-4 text-blue-100 hover:text-red-300 transition-colors w-full px-4 py-2">
+          <button
+            onClick={() => {
+              // Clear any admin session data
+              localStorage.removeItem("admin_token");
+              // Redirect to admin login
+              window.location.href = "/admin/login";
+            }}
+            className="flex items-center gap-4 text-blue-100 hover:text-red-300 transition-colors w-full px-4 py-2"
+          >
             <FaSignOutAlt className="text-xl" />
             {(isSidebarOpen || isMobile) && <span>Logout</span>}
           </button>
@@ -134,12 +143,6 @@ const AdminLayout = () => {
           </button>
 
           <div className="flex items-center gap-3 md:gap-6">
-            <button className="relative text-gray-500 hover:text-blue-600 transition-colors">
-              <FaBell size={20} />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
-                3
-              </span>
-            </button>
             <div className="flex items-center gap-2 md:gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
                 A

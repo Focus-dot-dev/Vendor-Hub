@@ -25,7 +25,6 @@ const AdminLogin = () => {
       return;
     }
     setError("");
-    console.log("Logging in with:", { email, password, rememberMe });
     navigate("/admin/dashboard");
   };
 

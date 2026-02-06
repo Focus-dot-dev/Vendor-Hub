@@ -111,7 +111,6 @@ const VendorSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Vendor registration:", formData);
     alert(
       "Registration submitted! We will review your application and get back to you.",
     );

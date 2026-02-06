@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaWallet,
   FaShoppingBag,
@@ -8,7 +8,9 @@ import {
   FaArrowDown,
   FaPlus,
   FaFilter,
+  FaBell,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { AreaChart, Area, ResponsiveContainer, Tooltip } from "recharts";
 import { useNavigate } from "react-router-dom";
 import { useVendor } from "../../context/VendorProvider";
@@ -77,6 +79,37 @@ const VendorDashboard = () => {
 
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const [timeRange, setTimeRange] = React.useState("This Week");
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+
+  // Mock notifications
+  const notifications = [
+    {
+      id: 1,
+      title: "New Order",
+      message: "Order #12345 received",
+      isRead: false,
+    },
+    {
+      id: 2,
+      title: "Order Shipped",
+      message: "Order #12340 shipped",
+      isRead: false,
+    },
+    {
+      id: 3,
+      title: "Customer Inquiry",
+      message: "Question about product",
+      isRead: true,
+    },
+    {
+      id: 4,
+      title: "KYC Approved",
+      message: "Verification complete",
+      isRead: true,
+    },
+  ];
+
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   // Select data based on filter
   const currentData = datasets[timeRange] || datasets["This Week"];
@@ -172,6 +205,63 @@ const VendorDashboard = () => {
               )}
             </div>
           )}
+
+          {/* Notification Bell */}
+          <div className="relative">
+            <button
+              onClick={() => setIsNotifOpen(!isNotifOpen)}
+              className="bg-white border text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2 transition shadow-sm relative"
+            >
+              <FaBell />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {isNotifOpen && (
+              <div className="absolute top-12 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-20 max-h-96 overflow-y-auto">
+                <div className="p-3 border-b border-gray-100 flex items-center justify-between">
+                  <h3 className="font-bold text-gray-900">Notifications</h3>
+                  <Link
+                    to="/vendor/notifications"
+                    className="text-blue-600 text-sm hover:underline"
+                    onClick={() => setIsNotifOpen(false)}
+                  >
+                    View All
+                  </Link>
+                </div>
+                <div className="divide-y divide-gray-100">
+                  {notifications.slice(0, 5).map((notif) => (
+                    <div
+                      key={notif.id}
+                      className={`p-3 cursor-pointer transition-colors ${
+                        !notif.isRead
+                          ? "bg-green-50 hover:bg-green-100"
+                          : "bg-red-50 hover:bg-red-100"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-900 text-sm">
+                            {notif.title}
+                          </h4>
+                          <p className="text-gray-600 text-xs mt-1">
+                            {notif.message}
+                          </p>
+                        </div>
+                        {!notif.isRead && (
+                          <span className="w-2 h-2 bg-green-500 rounded-full mt-1"></span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={() => navigate("/vendor/products/add")}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2 transition shadow-md shadow-blue-200"

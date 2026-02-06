@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { useCart } from "../context/CartContext.js";
 
-const ProductCard = ({ id, image, title, price, rating, discount }) => {
+const ProductCard = ({ id, image, title, price, rating, discount, vendor }) => {
   const { addToCart } = useCart();
 
   return (
@@ -37,6 +37,13 @@ const ProductCard = ({ id, image, title, price, rating, discount }) => {
           <h3 className="font-semibold text-gray-800 dark:text-white mb-1 line-clamp-2 text-sm h-10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             {title}
           </h3>
+          <Link
+            to={`/shop?vendor=${encodeURIComponent(vendor)}`}
+            className="text-xs text-gray-500 hover:text-blue-500 mb-2 block"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Sold by: {vendor}
+          </Link>
           <div className="flex items-center gap-1 mb-2">
             {[...Array(5)].map((_, i) => (
               <FaStar

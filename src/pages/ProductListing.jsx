@@ -54,6 +54,10 @@ const ProductListing = () => {
     if (query !== null) {
       setSearchQuery(query);
     }
+    const vendorQuery = searchParams.get("vendor");
+    if (vendorQuery) {
+      setSelectedVendors([vendorQuery]);
+    }
   }, [searchParams]);
   const [sortBy, setSortBy] = useState("featured");
   const [currentPage, setCurrentPage] = useState(1);

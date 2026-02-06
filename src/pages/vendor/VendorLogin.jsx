@@ -18,7 +18,6 @@ const VendorLogin = () => {
     }
     setError("");
     // TODO: Implement actual login logic
-    console.log("Logging in vendor with:", { email, password, rememberMe });
     navigate("/vendor/dashboard");
   };
 
