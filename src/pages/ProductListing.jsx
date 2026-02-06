@@ -201,16 +201,16 @@ const ProductListing = () => {
     <>
       <LandingNav />
 
-      <div className="bg-gray-50 min-h-screen">
+      <div className="bg-gray-900 min-h-screen">
         {/* Breadcrumb */}
-        <div className="bg-white border-b">
+        <div className="bg-gray-800 border-b border-gray-700">
           <div className="px-4 md:px-12 lg:px-24 py-4">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Link to="/" className="hover:text-blue-600 transition-colors">
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Link to="/" className="hover:text-blue-500 transition-colors">
                 Home
               </Link>
-              <span>/</span>
-              <span className="text-gray-900 font-semibold">Shop</span>
+              <span className="text-gray-500">/</span>
+              <span className="text-white font-semibold">Shop</span>
             </div>
           </div>
         </div>
@@ -219,9 +219,9 @@ const ProductListing = () => {
           <div className="flex gap-8">
             {/* Desktop Sidebar Filters */}
             <aside className="hidden lg:block w-64 shrink-0">
-              <div className="bg-white rounded-xl shadow-sm p-6 sticky top-4">
+              <div className="bg-gray-800 rounded-xl shadow-sm p-6 sticky top-4 border border-gray-700">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">Filters</h2>
+                  <h2 className="text-xl font-bold text-white">Filters</h2>
                   {activeFiltersCount > 0 && (
                     <button
                       onClick={clearAllFilters}
@@ -234,9 +234,7 @@ const ProductListing = () => {
 
                 {/* Categories */}
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Categories
-                  </h3>
+                  <h3 className="font-semibold text-white mb-3">Categories</h3>
                   <div className="space-y-2">
                     {categories.map((category) => (
                       <label
@@ -249,7 +247,7 @@ const ProductListing = () => {
                           onChange={() => handleCategoryToggle(category)}
                           className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                         />
-                        <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                        <span className="text-sm text-gray-300 group-hover:text-blue-500 transition-colors">
                           {category}
                         </span>
                       </label>
@@ -257,40 +255,37 @@ const ProductListing = () => {
                   </div>
                 </div>
 
-                {/* Vendors */}
+                {/* Popular Vendors */}
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Vendors</h3>
-                  <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                    {vendors.map((vendor) => (
-                      <label
-                        key={vendor}
-                        className="flex items-center gap-2 cursor-pointer group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedVendors.includes(vendor)}
-                          onChange={() =>
-                            setSelectedVendors((prev) =>
-                              prev.includes(vendor)
-                                ? prev.filter((v) => v !== vendor)
-                                : [...prev, vendor],
-                            )
-                          }
-                          className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                        />
-                        <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-semibold text-white mb-3">
+                    Popular Vendors
+                  </h3>
+                  <div className="relative">
+                    <select
+                      value={selectedVendors[0] || ""}
+                      onChange={(e) =>
+                        setSelectedVendors(
+                          e.target.value ? [e.target.value] : [],
+                        )
+                      }
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg text-white px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer"
+                    >
+                      <option value="">All Vendors</option>
+                      {vendors.map((vendor) => (
+                        <option key={vendor} value={vendor}>
                           {vendor}
-                        </span>
-                      </label>
-                    ))}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                      <FaChevronDown size={12} />
+                    </div>
                   </div>
                 </div>
 
                 {/* Price Range */}
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    Price Range
-                  </h3>
+                  <h3 className="font-semibold text-white mb-3">Price Range</h3>
                   <div className="space-y-3">
                     <input
                       type="range"
@@ -311,7 +306,7 @@ const ProductListing = () => {
 
                 {/* Rating Filter */}
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Rating</h3>
+                  <h3 className="font-semibold text-white mb-3">Rating</h3>
                   <div className="space-y-2">
                     {[5, 4, 3].map((rating) => (
                       <label
@@ -328,7 +323,7 @@ const ProductListing = () => {
                           }}
                           className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                         />
-                        <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                        <span className="text-sm text-gray-300 group-hover:text-blue-500 transition-colors">
                           {rating}+ Stars
                         </span>
                       </label>
@@ -344,7 +339,7 @@ const ProductListing = () => {
                         }}
                         className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                      <span className="text-sm text-gray-300 group-hover:text-blue-500 transition-colors">
                         All Ratings
                       </span>
                     </label>
@@ -353,7 +348,7 @@ const ProductListing = () => {
 
                 {/* Discount Filter */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Discount</h3>
+                  <h3 className="font-semibold text-white mb-3">Discount</h3>
                   <div className="space-y-2">
                     {[50, 20, 10, 0].map((discount) => (
                       <label
@@ -370,7 +365,7 @@ const ProductListing = () => {
                           }}
                           className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                         />
-                        <span className="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+                        <span className="text-sm text-gray-300 group-hover:text-blue-500 transition-colors">
                           {discount > 0
                             ? `${discount}% or more`
                             : "All Products"}
@@ -385,7 +380,7 @@ const ProductListing = () => {
             {/* Main Content */}
             <main className="flex-1">
               {/* Search and Sort Bar */}
-              <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
+              <div className="bg-gray-800 rounded-xl shadow-sm p-4 mb-6 border border-gray-700">
                 <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                   <div className="flex items-center gap-4 w-full md:w-auto">
                     {/* Mobile Filter Button */}
@@ -411,13 +406,13 @@ const ProductListing = () => {
                         setSearchQuery(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="flex-1 md:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 md:w-64 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 md:mr-2"
                     />
                   </div>
 
                   <div className="flex items-center gap-4 w-full md:w-auto justify-between">
                     {/* Results Count */}
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-400">
                       {filteredProducts.length} products
                     </span>
 
@@ -425,7 +420,7 @@ const ProductListing = () => {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     >
                       <option value="featured">Featured</option>
                       <option value="price-low">Price: Low to High</option>
@@ -438,13 +433,13 @@ const ProductListing = () => {
                     <div className="hidden md:flex items-center gap-2 bg-gray-100 rounded-lg p-1">
                       <button
                         onClick={() => setViewMode("grid")}
-                        className={`p-2 rounded ${viewMode === "grid" ? "bg-white shadow-sm" : "text-gray-500"}`}
+                        className={`p-2 rounded ${viewMode === "grid" ? "bg-gray-700 text-white shadow-sm" : "text-gray-500"}`}
                       >
                         <FaThLarge size={16} />
                       </button>
                       <button
                         onClick={() => setViewMode("list")}
-                        className={`p-2 rounded ${viewMode === "list" ? "bg-white shadow-sm" : "text-gray-500"}`}
+                        className={`p-2 rounded ${viewMode === "list" ? "bg-gray-700 text-white shadow-sm" : "text-gray-500"}`}
                       >
                         <FaList size={16} />
                       </button>
@@ -513,14 +508,14 @@ const ProductListing = () => {
                 </>
               ) : (
                 // Empty State
-                <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-                  <div className="text-gray-400 mb-4">
+                <div className="bg-gray-800 rounded-xl shadow-sm p-12 text-center border border-gray-700">
+                  <div className="text-gray-500 mb-4">
                     <FaFilter size={64} className="mx-auto" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     No products found
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-400 mb-6">
                     Try adjusting your filters or search query
                   </p>
                   <button
@@ -543,13 +538,13 @@ const ProductListing = () => {
             className="absolute inset-0 bg-black/50"
             onClick={() => setIsFilterOpen(false)}
           />
-          <div className="absolute right-0 top-0 bottom-0 w-full max-w-xs bg-white shadow-xl overflow-y-auto">
+          <div className="absolute right-0 top-0 bottom-0 w-full max-w-xs bg-gray-800 shadow-xl overflow-y-auto border-l border-gray-700">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Filters</h2>
+                <h2 className="text-xl font-bold text-white">Filters</h2>
                 <button
                   onClick={() => setIsFilterOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg"
+                  className="p-2 hover:bg-gray-700 rounded-lg text-gray-400"
                 >
                   <FaTimes size={20} />
                 </button>
@@ -561,7 +556,7 @@ const ProductListing = () => {
                     clearAllFilters();
                     setIsFilterOpen(false);
                   }}
-                  className="w-full mb-6 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold"
+                  className="w-full mb-6 px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-colors font-semibold"
                 >
                   Clear All Filters
                 </button>
@@ -569,7 +564,7 @@ const ProductListing = () => {
 
               {/* Mobile Categories */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
+                <h3 className="font-semibold text-white mb-3">Categories</h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
                     <label
@@ -582,44 +577,41 @@ const ProductListing = () => {
                         onChange={() => handleCategoryToggle(category)}
                         className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">{category}</span>
+                      <span className="text-sm text-gray-300">{category}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
-              {/* Mobile Vendors */}
+              {/* Mobile Popular Vendors */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Vendors</h3>
-                <div className="space-y-2">
-                  {vendors.map((vendor) => (
-                    <label
-                      key={vendor}
-                      className="flex items-center gap-2 cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedVendors.includes(vendor)}
-                        onChange={() =>
-                          setSelectedVendors((prev) =>
-                            prev.includes(vendor)
-                              ? prev.filter((v) => v !== vendor)
-                              : [...prev, vendor],
-                          )
-                        }
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                      />
-                      <span className="text-sm text-gray-700">{vendor}</span>
-                    </label>
-                  ))}
+                <h3 className="font-semibold text-white mb-3">
+                  Popular Vendors
+                </h3>
+                <div className="relative">
+                  <select
+                    value={selectedVendors[0] || ""}
+                    onChange={(e) =>
+                      setSelectedVendors(e.target.value ? [e.target.value] : [])
+                    }
+                    className="w-full bg-gray-700 border border-gray-600 rounded-lg text-white px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer"
+                  >
+                    <option value="">All Vendors</option>
+                    {vendors.map((vendor) => (
+                      <option key={vendor} value={vendor}>
+                        {vendor}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <FaChevronDown size={12} />
+                  </div>
                 </div>
               </div>
 
               {/* Mobile Price Range */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">
-                  Price Range
-                </h3>
+                <h3 className="font-semibold text-white mb-3">Price Range</h3>
                 <div className="space-y-3">
                   <input
                     type="range"
@@ -631,7 +623,7 @@ const ProductListing = () => {
                     }
                     className="w-full accent-blue-600"
                   />
-                  <div className="flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center justify-between text-sm text-gray-400">
                     <span>${priceRange[0]}</span>
                     <span>${priceRange[1]}</span>
                   </div>
@@ -640,7 +632,7 @@ const ProductListing = () => {
 
               {/* Mobile Rating */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Rating</h3>
+                <h3 className="font-semibold text-white mb-3">Rating</h3>
                 <div className="space-y-2">
                   {[5, 4, 3].map((rating) => (
                     <label
@@ -654,7 +646,7 @@ const ProductListing = () => {
                         onChange={() => setSelectedRating(rating)}
                         className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">
+                      <span className="text-sm text-gray-300">
                         {rating}+ Stars
                       </span>
                     </label>
@@ -667,14 +659,14 @@ const ProductListing = () => {
                       onChange={() => setSelectedRating(0)}
                       className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-700">All Ratings</span>
+                    <span className="text-sm text-gray-300">All Ratings</span>
                   </label>
                 </div>
               </div>
 
               {/* Mobile Discount */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Discount</h3>
+                <h3 className="font-semibold text-white mb-3">Discount</h3>
                 <div className="space-y-2">
                   {[50, 20, 10, 0].map((discount) => (
                     <label
@@ -688,7 +680,7 @@ const ProductListing = () => {
                         onChange={() => setSelectedDiscount(discount)}
                         className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700">
+                      <span className="text-sm text-gray-300">
                         {discount > 0 ? `${discount}% or more` : "All Products"}
                       </span>
                     </label>

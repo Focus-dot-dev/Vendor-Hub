@@ -9,9 +9,9 @@ const ProductCard = ({ id, image, title, price, rating, discount, vendor }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer border border-gray-100 dark:border-gray-700 h-full flex flex-col">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer border border-gray-100 h-full flex flex-col">
       <Link to={`/product/${id}`}>
-        <div className="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
+        <div className="relative h-48 overflow-hidden bg-gray-100">
           <img
             src={image}
             alt={title}
@@ -34,7 +34,7 @@ const ProductCard = ({ id, image, title, price, rating, discount, vendor }) => {
         </div>
 
         <div className="p-4 flex flex-col grow">
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-1 line-clamp-2 text-sm h-10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <h3 className="font-semibold text-gray-800 mb-1 line-clamp-2 text-sm h-10 hover:text-blue-600 transition-colors">
             {title}
           </h3>
           <Link
@@ -49,19 +49,13 @@ const ProductCard = ({ id, image, title, price, rating, discount, vendor }) => {
               <FaStar
                 key={i}
                 size={12}
-                className={
-                  i < rating
-                    ? "text-yellow-400"
-                    : "text-gray-300 dark:text-gray-600"
-                }
+                className={i < rating ? "text-yellow-400" : "text-gray-300"}
               />
             ))}
-            <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
-              ({rating}.0)
-            </span>
+            <span className="text-xs text-gray-500 ml-1">({rating}.0)</span>
           </div>
           <div className="mt-auto flex items-center justify-between">
-            <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+            <span className="text-lg font-bold text-blue-600">
               ₦{price.toLocaleString()}
             </span>
             {discount && (
