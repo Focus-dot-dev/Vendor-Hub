@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEnvelope, FaLock, FaGoogle, FaFacebook } from "react-icons/fa";
 import LandingNav from "../components/LandingNav";
 import { useAuth } from "../context/AuthContext";
@@ -10,7 +10,10 @@ const CustomerLogin = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +23,7 @@ const CustomerLogin = () => {
     e.preventDefault();
     // Simulate successful login
     login({ email: formData.email, name: "John Doe" }); // Mock user
-    navigate("/");
+    navigate(from, { replace: true });
   };
 
   return (

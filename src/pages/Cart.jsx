@@ -1,12 +1,15 @@
 import React from "react";
 import LandingNav from "../components/LandingNav";
 import { useCart } from "../context/CartContext.js";
-import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Link, useLocation } from "react-router-dom";
 import { FaTrash, FaArrowLeft, FaMinus, FaPlus } from "react-icons/fa";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } =
     useCart();
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
 
   if (cartItems.length === 0) {
     return (
@@ -143,7 +146,10 @@ const Cart = () => {
                 </div>
               </div>
 
-              <Link to="/checkout">
+              <Link
+                to={isAuthenticated ? "/checkout" : "/login"}
+                state={!isAuthenticated ? { from: location } : null}
+              >
                 <button className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 mb-4 cursor-pointer">
                   Proceed to Checkout
                 </button>
